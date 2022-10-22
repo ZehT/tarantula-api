@@ -1,0 +1,15 @@
+# Server
+server:
+    port: 8080
+    servlet:
+        context-path: /tarantula-api
+# Spring
+spring:
+    application:
+        name: tarantula-api
+    # Profile
+    profiles:
+        active: ${TARANTULA_API_PROFILE_ACTIVE:h2}
+    # Liquibase
+    liquibase:
+        change-log: classpath:/db/liquibase.xml
