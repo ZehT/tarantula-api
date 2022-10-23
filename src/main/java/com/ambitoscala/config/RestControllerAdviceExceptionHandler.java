@@ -1,7 +1,10 @@
 package com.ambitoscala.config;
 
 import com.ambitoscala.commons.MessageSourceService;
+import com.ambitoscala.tarantula.exception.MoltsDontHappenThatFastException;
+import com.ambitoscala.tarantula.exception.NoContentException;
 import com.ambitoscala.tarantula.exception.TarantulaAlreadyExistsException;
+import com.ambitoscala.tarantula.exception.TarantulaNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -30,6 +33,30 @@ public class RestControllerAdviceExceptionHandler {
     public ResponseEntity<BasicResponse<Void>> tarantulaAlreadyExistsException(final TarantulaAlreadyExistsException tarantulaAlreadyExistsException) {
         final BasicResponse<Void> basicResponse = BasicResponse.fail(HttpStatus.CONFLICT.value(), tarantulaAlreadyExistsException.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(basicResponse);
+    }
+
+    @ExceptionHandler(TarantulaNotFoundException.class)
+    @ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseEntity<BasicResponse<Void>> tarantulaNotFoundException(final TarantulaNotFoundException tarantulaNotFoundException) {
+        final String errorMessage = messageSourceService.getMessage(tarantulaNotFoundException.getMessage());
+        final BasicResponse<Void> basicResponse = BasicResponse.fail(HttpStatus.UNPROCESSABLE_ENTITY.value(), errorMessage);
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(basicResponse);
+    }
+
+    @ExceptionHandler(MoltsDontHappenThatFastException.class)
+    @ResponseStatus(code = HttpStatus.TOO_EARLY)
+    public ResponseEntity<BasicResponse<Void>> moltsDontHappenThatFastException(final MoltsDontHappenThatFastException moltsDontHappenThatFastException) {
+        final String errorMessage = messageSourceService.getMessage(moltsDontHappenThatFastException.getMessage());
+        final BasicResponse<Void> basicResponse = BasicResponse.fail(HttpStatus.TOO_EARLY.value(), errorMessage);
+        return ResponseEntity.status(HttpStatus.TOO_EARLY).body(basicResponse);
+    }
+
+    @ExceptionHandler(NoContentException.class)
+    @ResponseStatus(code = HttpStatus.OK)
+    public ResponseEntity<BasicResponse<Void>> noContentException(final NoContentException noContentException) {
+        final String errorMessage = messageSourceService.getMessage(noContentException.getMessage());
+        final BasicResponse<Void> basicResponse = BasicResponse.fail(HttpStatus.OK.value(), errorMessage);
+        return ResponseEntity.status(HttpStatus.OK).body(basicResponse);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

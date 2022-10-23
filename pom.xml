@@ -12,7 +12,7 @@
     <artifactId>tarantula-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>tarantula-api</name>
-    <description>Tarantula</description>
+    <description>Tarantula Daily Care API - With Mongo DB</description>
 
     <properties>
         <java.version>11</java.version>
@@ -31,7 +31,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
 
         <dependency>
@@ -62,18 +62,6 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-bean-validators</artifactId>
             <version>${springfox-version}</version>
-        </dependency>
-
-        <!-- H2 In Memory DataBase -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-
-        <!-- Liquibase -->
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
         </dependency>
 
         <!-- Lombok -->

@@ -9,7 +9,4 @@ spring:
         name: tarantula-api
     # Profile
     profiles:
-        active: ${TARANTULA_API_PROFILE_ACTIVE:h2}
-    # Liquibase
-    liquibase:
-        change-log: classpath:/db/liquibase.xml
+        active: ${TARANTULA_API_PROFILE_ACTIVE:mongo}

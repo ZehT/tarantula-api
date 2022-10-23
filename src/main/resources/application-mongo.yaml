@@ -1,0 +1,6 @@
+# Spring
+spring:
+    data:
+        mongodb:
+            database: tarantula-db
+            port: 27017
